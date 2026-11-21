@@ -1,0 +1,222 @@
+.section {
+  position: relative;
+  padding: 26px 0 30px;
+  text-align: center;
+  background: var(--ivory);
+}
+
+.head {
+  padding: 0 24px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(32px, 9vw, 40px);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.meta {
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--f-serif);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.intro {
+  margin: 10px auto 0;
+  max-width: 270px;
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------- */
+
+.calendar {
+  margin: 26px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+}
+
+.dayNum {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 21px;
+  color: var(--ink-soft);
+  font-variant-numeric: lining-nums;
+}
+
+.today {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 46px;
+}
+
+.todayHeart {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: var(--green);
+  filter: drop-shadow(0 3px 6px rgba(38, 51, 43, 0.25));
+}
+
+.todayNum {
+  position: relative;
+  margin-top: -3px;
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--cream);
+  font-variant-numeric: lining-nums;
+}
+
+/* ---------------------------------------------------------------- */
+
+.timeline {
+  list-style: none;
+  margin: 34px auto 0;
+  padding: 0 18px;
+  max-width: 420px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 26px 1fr;
+  grid-template-areas: "left marker right";
+  align-items: start;
+  min-height: 104px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1px;
+}
+
+.text[data-side="left"] {
+  grid-area: left;
+  align-items: flex-end;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.text[data-side="right"] {
+  grid-area: right;
+  align-items: flex-start;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.time {
+  font-family: var(--f-serif);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  color: var(--ink-soft);
+  font-variant-numeric: lining-nums;
+}
+
+.label {
+  margin-top: 3px;
+  font-family: var(--f-display);
+  font-size: 17px;
+  line-height: 1.2;
+  color: var(--ink);
+  max-width: 150px;
+}
+
+.marker {
+  grid-area: marker;
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+}
+
+.marker::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: -2px;
+  left: 50%;
+  width: 1px;
+  translate: -50% 0;
+  background: rgba(46, 51, 47, 0.55);
+}
+
+.marker[data-last="true"]::after {
+  bottom: 36px;
+}
+
+.markerHeart {
+  position: relative;
+  z-index: 1;
+  width: 11px;
+  height: 10px;
+  margin-top: 4px;
+  fill: var(--green);
+}
+
+.icon {
+  display: flex;
+  margin-top: 16px;
+}
+
+.icon[data-side="right"] {
+  grid-area: right;
+  justify-content: flex-start;
+  padding-left: 18px;
+}
+
+.icon[data-side="left"] {
+  grid-area: left;
+  justify-content: flex-end;
+  padding-right: 18px;
+}
+
+.iconImg {
+  width: 96px;
+  height: auto;
+  margin-top: -10px;
+}
+
+/* ---------------------------------------------------------------- */
+
+.tile {
+  width: 80%;
+  max-width: 380px;
+  margin: 26px auto 0;
+}
+
+.tileImg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 6px 14px rgba(60, 50, 30, 0.12));
+}

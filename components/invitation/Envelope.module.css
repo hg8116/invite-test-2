@@ -1,0 +1,349 @@
+/*
+  Geometry (percentages of the envelope box):
+  - flap edge: sides at 36%, tip at 57%
+  - pocket edge: sides at 33%, tip at 54% (tucked under the flap)
+*/
+.envelope {
+  --flap: polygon(0 0, 100% 0, 100% 36%, 50% 57%, 0 36%);
+  --pocket-l: polygon(0 33%, 50% 54%, 50% 100%, 0 100%);
+  --pocket-r: polygon(50% 54%, 100% 33%, 100% 100%, 50% 100%);
+
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, var(--column));
+  translate: -50% 0;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.envelope:focus-visible .hint span {
+  outline: 2px solid #6a7d9e;
+  outline-offset: 3px;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  perspective: 1100px;
+  perspective-origin: 50% 42%;
+}
+
+.art {
+  object-fit: cover;
+  object-position: 50% 50%;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- */
+
+.interior {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 55% at 50% 30%, rgba(52, 47, 70, 0.18), rgba(52, 47, 70, 0.55)),
+    linear-gradient(to bottom, rgba(70, 62, 90, 0.35), rgba(70, 62, 90, 0.1) 45%, rgba(70, 62, 90, 0.3));
+  clip-path: polygon(0 0, 100% 0, 100% 34%, 50% 55%, 0 34%);
+}
+
+.pocketShadow {
+  position: absolute;
+  inset: 0;
+  filter: drop-shadow(0 -3px 5px rgba(45, 40, 60, 0.28));
+  will-change: transform, opacity;
+}
+
+.pocket {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.pocketLeft {
+  clip-path: var(--pocket-l);
+}
+
+.pocketRight {
+  clip-path: var(--pocket-r);
+}
+
+/* ---------------------------------------------------------------- */
+
+.flap {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  z-index: 2;
+}
+
+.flapFrontShadow {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  filter: drop-shadow(0 5px 6px rgba(40, 36, 58, 0.32));
+}
+
+.flapFront {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: var(--flap);
+}
+
+.flapShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(30, 28, 45, 0), rgba(30, 28, 45, 0.55));
+  opacity: 0;
+}
+
+.flapBack {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--flap);
+  background-color: #efe9e3;
+  background-size: 300px 300px;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: inset 0 0 60px rgba(80, 70, 100, 0.25);
+}
+
+/* ---------------------------------------------------------------- */
+
+.ribbon {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.strap {
+  position: absolute;
+  left: 50%;
+  width: 23%;
+  translate: -50% 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  will-change: transform, opacity;
+}
+
+.strapTop {
+  top: -2%;
+  height: 58%;
+}
+
+.strapBottom {
+  top: 54%;
+  height: 48%;
+}
+
+.bow {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 62%;
+  height: auto;
+  transform: translate(-50%, -40%);
+  transform-origin: 50% 40%;
+  will-change: transform, opacity;
+}
+
+.hint {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  bottom: calc(5.5% + env(safe-area-inset-bottom, 0px));
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hint span {
+  padding: 0.5em 1.25em 0.45em;
+  border-radius: 999px;
+  background: rgba(247, 243, 238, 0.82);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 18px rgba(30, 40, 70, 0.18);
+  font-family: var(--f-serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink);
+  animation: hintPulse 2.6s var(--ease-in-out) 1.2s infinite both;
+}
+
+@keyframes hintPulse {
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Opening choreography (~3.2s)                                       */
+/* ---------------------------------------------------------------- */
+
+.envelope[data-phase="opening"] {
+  cursor: default;
+  pointer-events: none;
+}
+
+.envelope[data-phase="opening"] .hint {
+  animation: fadeOut 0.35s ease-out both;
+}
+
+.envelope[data-phase="opening"] .bow {
+  animation: bowAway 1s cubic-bezier(0.5, 0, 0.75, 0) both;
+}
+
+.envelope[data-phase="opening"] .strapTop {
+  animation: strapUp 1s cubic-bezier(0.55, 0, 0.7, 0.3) 0.12s both;
+}
+
+.envelope[data-phase="opening"] .strapBottom {
+  animation: strapDown 1s cubic-bezier(0.55, 0, 0.7, 0.3) 0.12s both;
+}
+
+.envelope[data-phase="opening"] .flap {
+  animation: flapOpen 1.5s cubic-bezier(0.42, 0.1, 0.5, 1) 0.8s both;
+}
+
+.envelope[data-phase="opening"] .flapShade {
+  animation: flapShade 1.5s cubic-bezier(0.42, 0.1, 0.5, 1) 0.8s both;
+}
+
+.envelope[data-phase="opening"] .stage {
+  animation: zoomIn 1.4s var(--ease-in-out) 1.85s both;
+}
+
+.envelope[data-phase="opening"] .left {
+  animation: pocketLeft 1.25s cubic-bezier(0.55, 0.05, 0.6, 1) 2s both;
+}
+
+.envelope[data-phase="opening"] .right {
+  animation: pocketRight 1.25s cubic-bezier(0.55, 0.05, 0.6, 1) 2s both;
+}
+
+.envelope[data-phase="opening"] .interior {
+  animation: fadeOut 0.9s ease-out 2.05s both;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes bowAway {
+  0% {
+    transform: translate(-50%, -40%) scale(1) rotate(0);
+    opacity: 1;
+  }
+  30% {
+    transform: translate(-50%, -42%) scale(1.04) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 30%) scale(0.55) rotate(-16deg);
+    opacity: 0;
+  }
+}
+
+@keyframes strapUp {
+  to {
+    transform: translateY(-105%);
+    opacity: 0;
+  }
+}
+
+@keyframes strapDown {
+  to {
+    transform: translateY(105%);
+    opacity: 0;
+  }
+}
+
+@keyframes flapOpen {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(100deg);
+  }
+}
+
+@keyframes flapShade {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes pocketLeft {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-42%, 46%) rotate(-9deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pocketRight {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(42%, 46%) rotate(9deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint span {
+    animation: none;
+  }
+  .envelope[data-phase="opening"] * {
+    animation: none !important;
+  }
+  .envelope[data-phase="opening"] {
+    animation: fadeOut 0.6s ease-out both;
+  }
+}

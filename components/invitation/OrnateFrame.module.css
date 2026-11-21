@@ -1,0 +1,108 @@
+.frame {
+  --frame-bg: var(--green);
+  --inset: 14px;
+  position: relative;
+  color: var(--cream-soft);
+  padding: 74px 34px 70px;
+}
+
+/* double rule */
+.rules {
+  position: absolute;
+  inset: var(--inset);
+  border: 1px solid currentColor;
+  pointer-events: none;
+}
+
+.rules::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid currentColor;
+  opacity: 0.75;
+}
+
+.cornerWrap {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+}
+
+.corner {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.tl {
+  top: 2px;
+  left: 2px;
+}
+
+.tr {
+  top: 2px;
+  right: 2px;
+  transform: scaleX(-1);
+}
+
+.bl {
+  bottom: 2px;
+  left: 2px;
+  transform: scaleY(-1);
+}
+
+.br {
+  bottom: 2px;
+  right: 2px;
+  transform: scale(-1, -1);
+}
+
+.bowWrap {
+  position: absolute;
+  left: 50%;
+  width: 150px;
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+.bow {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.top {
+  top: calc(var(--inset) - 18px);
+}
+
+.bottom {
+  bottom: calc(var(--inset) - 18px);
+  transform: scaleY(-1);
+}
+
+.sprigWrap {
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  translate: 0 -50%;
+  pointer-events: none;
+}
+
+.sprig {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.leftSide {
+  left: calc(var(--inset) - 9px);
+}
+
+.rightSide {
+  right: calc(var(--inset) - 9px);
+}
+
+.inner {
+  position: relative;
+}

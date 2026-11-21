@@ -1,0 +1,88 @@
+.dress {
+  position: relative;
+  padding: 46px 0 0;
+  text-align: center;
+  background: var(--ivory);
+  overflow: hidden;
+}
+
+.head {
+  position: relative;
+  z-index: 1;
+  padding: 0 24px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(32px, 9vw, 40px);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.code {
+  margin: 10px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.ribbons {
+  margin-top: -18px;
+}
+
+.ribbonsImg {
+  width: 100%;
+  height: auto;
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------------- */
+
+.footer {
+  padding: 10px 24px calc(64px + env(safe-area-inset-bottom, 0px));
+  text-align: center;
+  background: var(--ivory);
+}
+
+.monogram {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--f-display);
+  font-size: 34px;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.amp {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--ink-soft);
+}
+
+.line {
+  margin: 14px auto 0;
+  max-width: 260px;
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+.date {
+  margin: 10px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--ink-soft);
+}

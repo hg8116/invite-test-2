@@ -1,0 +1,91 @@
+.section {
+  position: relative;
+  padding: 64px 0 36px;
+  text-align: center;
+  background: var(--ivory);
+  scroll-margin-top: 0;
+}
+
+.head {
+  padding: 0 24px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(32px, 9vw, 40px);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.until {
+  margin: 6px 0 0;
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-soft);
+}
+
+.frame {
+  position: relative;
+  width: 84%;
+  max-width: 400px;
+  aspect-ratio: 900 / 1200;
+  margin: 26px auto 0;
+}
+
+.frameImg {
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.values {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  top: 14%;
+  bottom: 14%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 3.2vw, 18px);
+}
+
+.unit {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.num {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(24px, 7vw, 30px);
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--ink);
+  min-width: 2ch;
+}
+
+.label {
+  margin-top: 4px;
+  font-family: var(--f-display);
+  font-size: clamp(13px, 3.8vw, 15px);
+  color: var(--ink-soft);
+}
+
+.days {
+  margin-bottom: clamp(6px, 3vw, 16px);
+}
+
+.days .num {
+  font-size: clamp(40px, 12vw, 54px);
+}
+
+.days .label {
+  font-size: clamp(15px, 4.4vw, 18px);
+}

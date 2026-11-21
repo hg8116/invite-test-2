@@ -1,0 +1,241 @@
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  max-height: 1100px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.fg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bgImg {
+  object-fit: cover;
+  object-position: 50% 50%;
+  transform: scale(1.08);
+  transition: transform 2.6s var(--ease-out);
+}
+
+.hero[data-revealed="true"] .bgImg {
+  transform: scale(1);
+}
+
+/* ---------------------------------------------------------------- */
+
+.card {
+  position: absolute;
+  left: 50%;
+  top: 22.5%;
+  bottom: 21%;
+  width: 66%;
+  max-width: 340px;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardImg {
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  padding: 0 9%;
+  text-align: center;
+  color: #3a3a38;
+}
+
+.names {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(30px, min(10.5vw, 5.3svh), 44px);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  color: #34322f;
+}
+
+.amp {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 0.48em;
+  line-height: 1.1;
+  margin: 0.05em 0 0.02em;
+  color: #5d5a55;
+}
+
+.invite {
+  margin: clamp(10px, 2svh, 18px) 0 0;
+  font-family: var(--f-serif);
+  font-weight: 500;
+  font-size: clamp(9px, 1.35svh, 11px);
+  letter-spacing: 0.24em;
+  line-height: 1.75;
+  text-transform: uppercase;
+  color: #4b4945;
+}
+
+.date {
+  margin: clamp(10px, 2.2svh, 20px) auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
+}
+
+.dateText {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 5.5em;
+  line-height: 1.2;
+}
+
+.small {
+  font-family: var(--f-serif);
+  font-weight: 500;
+  font-size: clamp(8.5px, 1.2svh, 10.5px);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #55524d;
+  padding-left: 0.3em;
+}
+
+.day {
+  font-family: var(--f-display);
+  font-size: clamp(26px, 4.2svh, 34px);
+  line-height: 1.05;
+  margin: 0.05em 0 0.08em;
+  color: #34322f;
+}
+
+.sprig {
+  width: 30%;
+  max-width: 84px;
+  height: auto;
+  margin: 0 -4%;
+  transform: rotate(10deg);
+}
+
+.sprigLeft {
+  transform: scaleX(-1) rotate(10deg);
+}
+
+.heldAt {
+  margin: clamp(10px, 2.2svh, 20px) 0 0;
+  font-family: var(--f-serif);
+  font-weight: 500;
+  font-size: clamp(8.5px, 1.2svh, 10.5px);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #55524d;
+}
+
+.place {
+  margin: 0.35em 0 0;
+  font-family: var(--f-display);
+  font-size: clamp(15px, 2.3svh, 19px);
+  color: #3a3835;
+}
+
+/* ---------------------------------------------------------------- */
+
+.item {
+  opacity: 0;
+}
+
+.hero[data-revealed="true"] .item {
+  animation: itemIn 1.3s var(--ease-out) both;
+  animation-delay: calc(0.15s + var(--i) * 0.16s);
+}
+
+@keyframes itemIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+/* ---------------------------------------------------------------- */
+
+.scroll {
+  position: absolute;
+  left: 50%;
+  bottom: calc(4% + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #3f4448;
+  background: rgba(250, 248, 245, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 14px rgba(20, 30, 60, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease 1.6s;
+}
+
+.hero[data-revealed="true"] .scroll {
+  opacity: 1;
+  pointer-events: auto;
+  animation: bob 2.4s var(--ease-in-out) 2.4s infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bgImg {
+    transform: none;
+    transition: none;
+  }
+  .hero[data-revealed="true"] .item {
+    animation: fadeIn 0.6s ease both;
+  }
+  .hero[data-revealed="true"] .scroll {
+    animation: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
